@@ -1,1 +1,4 @@
-
+cd swe-inventory-รหัสนักศึกษา
+git switch main
+git pull
+mkdir -p inventory-sdd/specs inventory-sdd/src inventory-sdd/diagrams
