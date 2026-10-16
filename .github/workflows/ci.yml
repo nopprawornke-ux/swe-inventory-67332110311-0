@@ -1,4 +1,4 @@
-name: CI
+﻿name: CI
 
 on:
   push:
@@ -10,19 +10,19 @@ jobs:
   test-and-lint:
     runs-on: ubuntu-latest
     steps:
-      - name: ดึงโค้ด
+      - name: à¸”à¸¶à¸‡à¹‚à¸„à¹‰à¸”
         uses: actions/checkout@v4
 
-      - name: ติดตั้ง Python
+      - name: à¸•à¸´à¸”à¸•à¸±à¹‰à¸‡ Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: ติดตั้ง package
+      - name: à¸•à¸´à¸”à¸•à¸±à¹‰à¸‡ package
         run: pip install -r requirements.txt
 
-      - name: ตรวจด้วย ruff
+      - name: à¸•à¸£à¸§à¸ˆà¸”à¹‰à¸§à¸¢ ruff
         run: ruff check .
 
-      - name: รัน test พร้อมเกณฑ์ coverage ขั้นต่ำ
-        run: pytest tests/ --cov=. --cov-report=term-missing --cov-fail-under=85
+      - name: à¸£à¸±à¸™ test à¸žà¸£à¹‰à¸­à¸¡à¹€à¸à¸“à¸‘à¹Œ coverage à¸‚à¸±à¹‰à¸™à¸•à¹ˆà¸³
+        run: python -m pytest tests/ --cov=. --cov-report=term-missing --cov-fail-under=85
