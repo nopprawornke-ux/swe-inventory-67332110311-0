@@ -1,6 +1,5 @@
 ﻿import pytest
-from inventory import Inventory
-
+from inventory import Inventory, InventoryItem
 @pytest.fixture
 def empty_inventory():
     return Inventory()
@@ -84,9 +83,6 @@ def test_sell_invalid_type_raises_type_error(empty_inventory):
     with pytest.raises(TypeError):
         inv.sell("Apple", "two")
 
-        import pytest
-from inventory import Inventory, InventoryItem
-
 
 # ทดสอบเงื่อนไข Validation ของ InventoryItem
 def test_inventory_item_validations():
@@ -134,4 +130,12 @@ def test_get_total_value(empty_inventory):
 
     inv.add_item("Apple", 10, 15.0)  # 150.0
     inv.add_item("Banana", 5, 20.0)  # 100.0
+    assert inv.get_total_value() == 250.0
+   # ทดสอบเมธอด get_total_value
+def test_get_total_value(empty_inventory):
+    inv = empty_inventory
+    assert inv.get_total_value() == 0.0
+
+    inv.add_item("Apple", 10, 15.0)
+    inv.add_item("Banana", 5, 20.0)
     assert inv.get_total_value() == 250.0
