@@ -1,9 +1,10 @@
 from dataclasses import dataclass
-from enum import Enum
+from enum import StrEnum
 
 
-class Category(str, Enum):
+class Category(StrEnum):
     """หมวดหมู่สินค้าในระบบ"""
+
     ELECTRICAL = "ไฟฟ้า"
     PLUMBING = "ประปา"
     TOOLS = "เครื่องมือช่าง"
@@ -21,6 +22,7 @@ class Product:
         price: ราคาต่อหน่วย (บาท)
         threshold: เกณฑ์จำนวนสต็อกขั้นต่ำสำหรับการแจ้งเตือน
     """
+
     name: str
     category: str
     quantity: int
@@ -38,6 +40,7 @@ class StockTransaction:
         quantity: จำนวนที่มีการรับหรือจ่าย
         remaining_quantity: จำนวนคงเหลือหลังทำรายการ
     """
+
     product_name: str
     action: str
     quantity: int

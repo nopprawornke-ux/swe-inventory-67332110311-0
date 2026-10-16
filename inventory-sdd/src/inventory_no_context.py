@@ -12,7 +12,7 @@ class InventorySystem:
             "category": category,
             "quantity": quantity,
             "price": price,
-            "threshold": threshold
+            "threshold": threshold,
         }
 
     def receive_stock(self, name, quantity):
@@ -28,19 +28,19 @@ class InventorySystem:
             raise ValueError("Invalid quantity")
         if name not in self.items:
             raise KeyError("Product not found")
-        
+
         current_stock = self.items[name]["quantity"]
         if quantity > current_stock:
             raise ValueError("Insufficient stock")
-        
+
         # ตัดยอดสต็อก
         self.items[name]["quantity"] -= quantity
         remaining = self.items[name]["quantity"]
-        
+
         # ตรวจสอบและแจ้งเตือนเมื่อต่ำกว่าหรือเท่ากับ threshold
         if remaining <= self.items[name]["threshold"]:
             self.send_alert(name, remaining)
-            
+
         return remaining
 
     def set_threshold(self, name, threshold):

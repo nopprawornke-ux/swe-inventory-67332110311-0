@@ -1,4 +1,4 @@
-﻿class InventoryItem:
+class InventoryItem:
     def __init__(self, name: str, quantity: int, price: float):
         if not name or not name.strip():
             raise ValueError("ชื่อสินค้าต้องไม่ว่างเปล่า")
@@ -44,18 +44,12 @@ class Inventory:
         return self._items[name].quantity
 
     def get_total_value(self) -> float:
-        return sum(
-            item.quantity * item.price for item in self._items.values()
-        )
+        return sum(item.quantity * item.price for item in self._items.values())
 
     def low_stock_items(self, threshold: int) -> list[str]:
         """คืนรายชื่อสินค้าที่มีจำนวนคงเหลือน้อยกว่าหรือเท่ากับ threshold โดยเรียงตามชื่อ"""
         if threshold < 0:
             raise ValueError("Threshold ต้องไม่ติดลบ")
 
-        matching_items = [
-            name
-            for name, item in self._items.items()
-            if item.quantity <= threshold
-        ]
+        matching_items = [name for name, item in self._items.items() if item.quantity <= threshold]
         return sorted(matching_items)

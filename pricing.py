@@ -1,6 +1,7 @@
-﻿"""
+"""
 pricing.py - โมดูลคำนวณราคาและส่วนลด (Refactored Version)
 """
+
 import datetime
 from typing import Any
 
@@ -13,6 +14,7 @@ SAVE50_DISCOUNT_AMOUNT = 50.0
 member_points: dict[str, int] = {}
 LOG: list[tuple[Any, float]] = []
 
+
 def _calculate_item_subtotal(quantity: int, unit_price: float) -> float:
     if quantity <= 0:
         return 0.0
@@ -23,6 +25,7 @@ def _calculate_item_subtotal(quantity: int, unit_price: float) -> float:
         return subtotal * 0.95
     return subtotal
 
+
 def _apply_member_benefit(total: float, member: str | None) -> float:
     if member is None:
         return total
@@ -32,6 +35,7 @@ def _apply_member_benefit(total: float, member: str | None) -> float:
     earned_points = int(discounted_total / 100)
     member_points[member] += earned_points
     return discounted_total
+
 
 def _apply_coupon(total: float, coupon: str | None, today: datetime.date | None) -> float:
     if coupon is None:
@@ -46,16 +50,14 @@ def _apply_coupon(total: float, coupon: str | None, today: datetime.date | None)
             return total * (1.0 - NEWYEAR_DISCOUNT_RATE)
     return total
 
+
 def calc(
     items: list[tuple[str, int, float]],
     member: str | None = None,
     coupon: str | None = None,
     today: datetime.date | None = None,
 ) -> float:
-    subtotal = sum(
-        _calculate_item_subtotal(quantity=item[1], unit_price=item[2])
-        for item in items
-    )
+    subtotal = sum(_calculate_item_subtotal(quantity=item[1], unit_price=item[2]) for item in items)
     subtotal = _apply_member_benefit(subtotal, member)
     subtotal = _apply_coupon(subtotal, coupon, today)
     if subtotal < 0:
