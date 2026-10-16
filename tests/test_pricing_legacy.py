@@ -1,15 +1,15 @@
 ﻿import datetime
 import pytest
-import pricing_legacy
-from pricing_legacy import calc
+import pricing
+from pricing import calc
 
 @pytest.fixture(autouse=True)
 def reset_globals():
-    pricing_legacy.member_points.clear()
-    pricing_legacy.LOG.clear()
+    pricing.member_points.clear()
+    pricing.LOG.clear()
     yield
-    pricing_legacy.member_points.clear()
-    pricing_legacy.LOG.clear()
+    pricing.member_points.clear()
+    pricing.LOG.clear()
 
 def test_normal_price_single_item():
     items = [("Pen", 1, 100.0)]
@@ -31,7 +31,7 @@ def test_member_discount_and_points():
     items = [("Bag", 1, 1000.0)]
     result = calc(items, member="Somchai")
     assert result == 1016.5
-    assert pricing_legacy.member_points["Somchai"] == 9
+    assert pricing.member_points["Somchai"] == 9
 
 def test_coupon_save50():
     items = [("Pen", 2, 100.0)]
@@ -58,5 +58,5 @@ def test_discount_greater_than_total_price():
 def test_log_recording_side_effect():
     items = [("Pen", 1, 100.0)]
     result = calc(items, member="Alice")
-    assert len(pricing_legacy.LOG) == 1
-    assert pricing_legacy.LOG[0] == ("Alice", result)
+    assert len(pricing.LOG) == 1
+    assert pricing.LOG[0] == ("Alice", result)
