@@ -1,6 +1,4 @@
-# inventory.py  -- โค้ดจาก Lab 3/4
-
-class InventoryItem:
+﻿class InventoryItem:
     def __init__(self, name: str, quantity: int, price: float):
         if not name or not name.strip():
             raise ValueError("ชื่อสินค้าต้องไม่ว่างเปล่า")
@@ -18,7 +16,6 @@ class Inventory:
         self._items: dict[str, InventoryItem] = {}
 
     def add_item(self, name: str, quantity: int, price: float) -> InventoryItem:
-        """เพิ่มสินค้าใหม่ ถ้าชื่อซ้ำให้ raise ValueError"""
         if name in self._items:
             raise ValueError(f"สินค้า '{name}' มีอยู่ในระบบแล้ว")
         item = InventoryItem(name, quantity, price)
@@ -26,7 +23,6 @@ class Inventory:
         return item
 
     def restock(self, name: str, amount: int) -> int:
-        """เพิ่มจำนวนสินค้าที่มีอยู่ คืนค่าจำนวนหลังเติม"""
         if name not in self._items:
             raise KeyError(f"ไม่พบสินค้า '{name}' ในระบบ")
         if amount <= 0:
@@ -35,7 +31,6 @@ class Inventory:
         return self._items[name].quantity
 
     def sell(self, name: str, amount: int) -> int:
-        """ขายสินค้า ลดจำนวน คืนค่าจำนวนคงเหลือ"""
         if name not in self._items:
             raise KeyError(f"ไม่พบสินค้า '{name}' ในระบบ")
         if amount <= 0:
@@ -49,29 +44,11 @@ class Inventory:
         return self._items[name].quantity
 
     def get_total_value(self) -> float:
-        """คำนวณมูลค่ารวมของสินค้าทั้งหมดในคลัง"""
         return sum(
             item.quantity * item.price for item in self._items.values()
         )
 
-def low_stock_items(self, threshold: int) -> list[str]:
-        """คืนรายชื่อสินค้าที่มีจำนวนคงเหลือน้อยกว่าหรือเท่ากับ threshold โดยเรียงตามชื่อ"""
-        if threshold < 0:
-            raise ValueError("Threshold ต้องไม่ติดลบ")
-
-        matching_items = [
-            name
-            for name, item in self._items.items()
-            if item.quantity <= threshold
-        ]
-        return sorted(matching_items)
-
-def low_stock_items(self, threshold: int) -> list[str]:
-        if threshold < 0:
-            raise ValueError("Threshold ต้องไม่ติดลบ")
-        matching = [name for name, item in self._items.items() if item.quantity <= threshold]
-        return sorted(matching)
-def low_stock_items(self, threshold: int) -> list[str]:
+    def low_stock_items(self, threshold: int) -> list[str]:
         """คืนรายชื่อสินค้าที่มีจำนวนคงเหลือน้อยกว่าหรือเท่ากับ threshold โดยเรียงตามชื่อ"""
         if threshold < 0:
             raise ValueError("Threshold ต้องไม่ติดลบ")
